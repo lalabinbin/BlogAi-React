@@ -1,12 +1,26 @@
 import { useState } from "react";
-
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 export default function Header() {
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((e) => (e === "light" ? "dark" : "light"));
+  };
   return (
     <div className="border-b border-border bg-background/95 backdrop-blur [backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <a
+        <Link
+          to="/"
           className="flex items-center space-x-2"
-          href="/"
           data-discover="true"
         >
           <svg
@@ -29,19 +43,24 @@ export default function Header() {
           <span className="text-2xl font-bold text-primary opacity-0 sm:opacity-100">
             AI Blog Generator
           </span>
-        </a>
+        </Link>
         <div className="flex items-center gap-2">
-          <a className="hover:text-primary" href="/editor" data-discover="true">
+          <Link
+            to="/editor"
+            className="flex items-center space-x-2"
+            data-discover="true"
+          >
             <button
               data-slot="button"
               className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive text-primary underline-offset-4 hover:underline h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5"
             >
               Editor
             </button>
-          </a>
-          <a
-            className="hover:text-primary"
-            href="/history"
+          </Link>
+
+          <Link
+            to="/history"
+            className="flex items-center space-x-2"
             data-discover="true"
           >
             <button
@@ -50,7 +69,7 @@ export default function Header() {
             >
               History
             </button>
-          </a>
+          </Link>
           <button
             onClick={toggleTheme}
             data-slot="button"

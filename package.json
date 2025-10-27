@@ -10,10 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@radix-ui/react-slot": "^1.2.3",
     "@tabler/icons-react": "^3.35.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "lottie-react": "^2.4.1",
     "lucide-react": "^0.547.0",
     "path": "^0.12.7",
     "react": "^19.1.1",
