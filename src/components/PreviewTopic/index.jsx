@@ -1,5 +1,6 @@
 import React from "react";
-
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 const PreviewTopic = ({ contentBlock, handleCopy, handleDownload }) => {
   return (
     <div>
@@ -61,7 +62,9 @@ const PreviewTopic = ({ contentBlock, handleCopy, handleDownload }) => {
         <div className="grid gap-8 min-h-28">
           {contentBlock ? (
             <div className="prose max-w-none prose-headings:scroll-mt-24 dark:prose-invert">
-              <div dangerouslySetInnerHTML={{ __html: contentBlock }} />
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {contentBlock}
+              </ReactMarkdown>
             </div>
           ) : (
             <p className="text-center text-muted-foreground">

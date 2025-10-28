@@ -11,6 +11,7 @@ const Editor = () => {
     JSON.parse(localStorage.getItem("historyList")) || []
   );
   const handleCreate = () => {
+    if(!inputValue) return alert("Vui lượng nhập nội dung tạo blog")
     setIsLoading(true);
     console.log(inputValue);
     const prompt = `Write a detailed blog post about ${inputValue}. Include an introduction, several main points with explanations, and a conclusion. Use a friendly and engaging tone.`;
@@ -20,7 +21,6 @@ const Editor = () => {
     result
       .then((res) => {
         const text = res.response.candidates[0].content.parts[0].text;
-        console.log(text);
         setContentBlock(text);
         const newItem = { id: Date.now(), topic: inputValue, content: text };
         const updatedHistoryList = [...historyList, newItem];
@@ -31,10 +31,12 @@ const Editor = () => {
       });
   };
   const handleCopy = async () => {
+    if (!contentBlock) return alert("Vui lượng tạo bài về trên");
     // Dùng Clipboard API của trình duyệt để ghi text vào bộ nhớ tạm
     await navigator.clipboard.writeText(contentBlock);
   };
   const handleDownload = () => {
+    if (!contentBlock) return alert("Vui lượng tạo bài về trên");
     // 1️⃣ Tạo blob từ nội dung
     const blob = new Blob([contentBlock], { type: "text/plain" });
 
