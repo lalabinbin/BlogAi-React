@@ -8,6 +8,7 @@ const History = () => {
   const [isOpenPreview, setIsOpenPreview] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [selectedTopic, setSelectedTopic] = useState(null);
+  const [inputValue, setInputValue] = useState("");
   const [historyList, setHistoryList] = useState(
     () => JSON.parse(localStorage.getItem("historyList")) || []
   );
@@ -26,10 +27,12 @@ const History = () => {
   };
   const handleSeeTopic = (id) => {
     const topic = historyList.find((item) => item.id === id);
+    const title = historyList.find((item) => item.id === id).title;
     if (topic) {
       const text = topic.content.replace(/<[^>]*>/g, "");
       setSelectedTopic(text);
       setIsOpenPreview(true);
+      setInputValue(title);
     }
   };
   return (
@@ -43,12 +46,12 @@ const History = () => {
         handleDelete={handleDelete}
         isOpenDelete={isOpenDelete}
         setIsOpenDelete={setIsOpenDelete}
-        
       />
       <DialogTopic
         isOpenPreview={isOpenPreview}
         setIsOpenPreview={setIsOpenPreview}
         topic={selectedTopic}
+        inputValue={inputValue}
       ></DialogTopic>
     </div>
   );

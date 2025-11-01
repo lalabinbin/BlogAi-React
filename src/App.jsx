@@ -5,10 +5,12 @@ import Editor from "./pages/Editor/index.jsx";
 import History from "./pages/History/index.jsx";
 import Layout from "./components/Layout/index.jsx";
 import "./App.css";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <Router>
+      <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />

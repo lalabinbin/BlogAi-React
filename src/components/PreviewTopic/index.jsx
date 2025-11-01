@@ -1,11 +1,14 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { toast } from "react-hot-toast";
+
 const PreviewTopic = ({ contentBlock, inputValue }) => {
   const handleCopy = async () => {
     if (!contentBlock) return alert("Vui lượng tạo bài về trên");
     // Dùng Clipboard API của trình duyệt để ghi text vào bộ nhớ tạm
     await navigator.clipboard.writeText(contentBlock);
+    toast.success("Sao chép thành công!");
   };
   const handleDownload = () => {
     if (!contentBlock) return alert("Vui lòng tạo bài về trên");
@@ -28,6 +31,7 @@ const PreviewTopic = ({ contentBlock, inputValue }) => {
     // 5️⃣ Dọn dẹp
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    toast.success("Tải xuống thành công!");
   };
   return (
     <div>
@@ -38,7 +42,10 @@ const PreviewTopic = ({ contentBlock, inputValue }) => {
           </div>
           <div className="flex gap-2 justify-start md:justify-end">
             <button
-              onClick={handleCopy}
+              onClick={() => {
+                handleCopy();
+                handleClick();
+              }}
               data-slot="button"
               className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5"
               type="button"
@@ -61,7 +68,10 @@ const PreviewTopic = ({ contentBlock, inputValue }) => {
               Sao chép
             </button>
             <button
-              onClick={handleDownload}
+              onClick={() => {
+                handleDownload();
+                handleClick();
+              }}
               data-slot="button"
               className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5"
               type="button"

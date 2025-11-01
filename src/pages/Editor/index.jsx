@@ -2,7 +2,7 @@ import BlogTopicForm from "@/components/BlogTopicForm";
 import PreviewTopic from "@/components/PreviewTopic";
 import React, { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
+import { toast } from "react-hot-toast";
 const Editor = () => {
   const [inputValue, setInputValue] = useState("");
   const [contentBlock, setContentBlock] = useState("");
@@ -28,6 +28,7 @@ const Editor = () => {
       })
       .finally(() => {
         setIsLoading(false);
+        toast.success("Tạo bài về trên thanh cong!");
       });
   };
   return (
