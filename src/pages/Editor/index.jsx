@@ -11,7 +11,7 @@ const Editor = () => {
     JSON.parse(localStorage.getItem("historyList")) || []
   );
   const handleCreate = () => {
-    if(!inputValue) return alert("Vui lượng nhập nội dung tạo blog")
+    if (!inputValue) return alert("Vui lượng nhập nội dung tạo blog");
     setIsLoading(true);
     console.log(inputValue);
     const prompt = `Write a detailed blog post about ${inputValue}. Include an introduction, several main points with explanations, and a conclusion. Use a friendly and engaging tone.`;
@@ -30,33 +30,6 @@ const Editor = () => {
         setIsLoading(false);
       });
   };
-  const handleCopy = async () => {
-    if (!contentBlock) return alert("Vui lượng tạo bài về trên");
-    // Dùng Clipboard API của trình duyệt để ghi text vào bộ nhớ tạm
-    await navigator.clipboard.writeText(contentBlock);
-  };
-  const handleDownload = () => {
-    if (!contentBlock) return alert("Vui lượng tạo bài về trên");
-    // 1️⃣ Tạo blob từ nội dung
-    const blob = new Blob([contentBlock], { type: "text/plain" });
-
-    // 2️⃣ Tạo URL tạm thời cho blob
-    const url = URL.createObjectURL(blob);
-
-    // 3️⃣ Tạo thẻ <a> để mô phỏng hành động tải xuống
-    const a = document.createElement("a");
-    a.href = url;
-    const filename = `${inputValue}.txt`;
-    a.download = filename;
-
-    // 4️⃣ Thêm vào DOM và click tự động
-    document.body.appendChild(a);
-    a.click();
-
-    // 5️⃣ Dọn dẹp
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
   return (
     <div className="grid gap-4">
       <BlogTopicForm
@@ -65,11 +38,7 @@ const Editor = () => {
         handleCreate={handleCreate}
         isLoading={isLoading}
       />
-      <PreviewTopic
-        handleCopy={handleCopy}
-        handleDownload={handleDownload}
-        contentBlock={contentBlock}
-      />
+      <PreviewTopic contentBlock={contentBlock} inputValue={inputValue} />
     </div>
   );
 };

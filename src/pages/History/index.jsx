@@ -43,6 +43,7 @@ const History = () => {
         handleDelete={handleDelete}
         isOpenDelete={isOpenDelete}
         setIsOpenDelete={setIsOpenDelete}
+        
       />
       <DialogTopic
         isOpenPreview={isOpenPreview}

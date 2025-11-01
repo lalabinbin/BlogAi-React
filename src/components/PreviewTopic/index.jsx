@@ -1,7 +1,34 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-const PreviewTopic = ({ contentBlock, handleCopy, handleDownload }) => {
+const PreviewTopic = ({ contentBlock, inputValue }) => {
+  const handleCopy = async () => {
+    if (!contentBlock) return alert("Vui lượng tạo bài về trên");
+    // Dùng Clipboard API của trình duyệt để ghi text vào bộ nhớ tạm
+    await navigator.clipboard.writeText(contentBlock);
+  };
+  const handleDownload = () => {
+    if (!contentBlock) return alert("Vui lòng tạo bài về trên");
+    // 1️⃣ Tạo blob từ nội dung
+    const blob = new Blob([contentBlock], { type: "text/plain" });
+
+    // 2️⃣ Tạo URL tạm thời cho blob
+    const url = URL.createObjectURL(blob);
+
+    // 3️⃣ Tạo thẻ <a> để mô phỏng hành động tải xuống
+    const a = document.createElement("a");
+    a.href = url;
+    const filename = `${inputValue}.txt`;
+    a.download = filename;
+
+    // 4️⃣ Thêm vào DOM và click tự động
+    document.body.appendChild(a);
+    a.click();
+
+    // 5️⃣ Dọn dẹp
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
   return (
     <div>
       <div className=" w-full text-card-foreground gap-6 justify-between rounded-xl  bg-card border shadow-sm p-6">

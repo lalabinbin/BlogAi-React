@@ -15,7 +15,7 @@ export function DialogTopic({ isOpenPreview, setIsOpenPreview, topic }) {
   return (
     <Dialog open={isOpenPreview} onOpenChange={setIsOpenPreview}>
       <DialogTitle className="sr-only">Preview Topic</DialogTitle>
-      <DialogContent className="sm:max-w-[768px] h-[80vh] overflow-auto">
+      <DialogContent className="sm:max-w-[768px] h-[80vh] overflow-auto p-0 border-transparent">
         <PreviewTopic contentBlock={topic} />
       </DialogContent>
     </Dialog>

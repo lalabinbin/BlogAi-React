@@ -4,7 +4,6 @@ import {
   DialogClose,
   DialogContent,
   DialogFooter,
-  
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import Lottie from "lottie-react";
@@ -12,7 +11,7 @@ import trash from "../../assets/trash.json";
 
 export function ConfirmDelete({ isOpenDelete, setIsOpenDelete, handleDelete }) {
   return (
-    <Dialog open={isOpenDelete}>
+    <Dialog open={isOpenDelete} onOpenChange={setIsOpenDelete}>
       <DialogContent className="sm:max-w-[425px]">
         <div className="grid gap-4">
           <div className="grid gap-3">
@@ -31,7 +30,7 @@ export function ConfirmDelete({ isOpenDelete, setIsOpenDelete, handleDelete }) {
             </Label>
           </div>
         </div>
-        <DialogFooter>
+        <DialogFooter className="grid grid-cols-2 ">
           <DialogClose asChild>
             <Button
               onClick={() => setIsOpenDelete(false)}
